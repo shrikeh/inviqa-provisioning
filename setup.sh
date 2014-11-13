@@ -10,7 +10,7 @@ function command_exists () {
 
 function _get_pip() {
   if ! command_exists 'pip'; then
-    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7
+    sudo easy_install pip
   fi
 }
 function _run_ansible() {
@@ -31,10 +31,9 @@ function _run_ansible() {
 
   _get_pip
 
-  pip install --upgrade --quiet setuptools;
-  pip install --upgrade --quiet pip;
-  pip install --upgrade --quiet virtualenv;
-
+  sudo pip install --upgrade --quiet setuptools;
+  sudo pip install --upgrade --quiet pip;
+  sudo pip install --upgrade --quiet virtualenv;
 
   virtualenv "${DEFAULT_VIRTUALENV}";
 
