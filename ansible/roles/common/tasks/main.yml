@@ -1,0 +1,3 @@
+---
+- name: Do something
+  command: echo "We are here"
