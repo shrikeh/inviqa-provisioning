@@ -16,14 +16,15 @@ function _run_ansible() {
 
   declare -r DEFAULT_ANSIBLE_DIR='ansible';
   declare -r DEFAULT_VIRTUALENV='venv'
+  declare -r DEFAULT_ANSIBLE_REPO='https://github.com/shrikeh/inviqa-provisioning'
 
   local SOURCE='source'
-
-  local ANSIBLE_WORKDIR="${1:-${TMPDIR=}}";
+  local ANSIBLE_WORKDIR="${1:-${TMPDIR}}";
+  local ANSIBLE_REPO="${2:-${DEFAULT_ANSIBLE_REPO}}";
 
   declare -r DEFAULT_TARGET_DIR="${ANSIBLE_WORKDIR}/${DEFAULT_ANSIBLE_DIR}";
 
-  local TARGET_DIR="${2:-${DEFAULT_TARGET_DIR}}";
+  local TARGET_DIR="${3:-${DEFAULT_TARGET_DIR}}";
 
   _get_ansible ${TARGET_DIR}
 
@@ -43,9 +44,11 @@ function _run_ansible() {
 
   pip install --upgrade --quiet PyYAML jinja2;
 
+  git clone ${ANSIBLE_REPO} ./repo
+
   ${TARGET_DIR}/bin/ansible-playbook \
-  -i ~/Workspace/work/inviqa/inviqa-provisioning/ansible/inventory \
-   ~/Workspace/work/inviqa/inviqa-provisioning/ansible/frontend.yml
+  -i ./repo/ansible/inventory \
+   ./repo/ansible/frontend.yml
 
 }
 
