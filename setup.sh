@@ -42,11 +42,11 @@ function _run_ansible() {
 
   CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
 
+  rm -rf ./repo
+  
   git clone ${ANSIBLE_REPO} ./repo
 
-  ${TARGET_DIR}/bin/ansible-playbook \
-  -i ./repo/ansible/inventory \
-   ./repo/ansible/frontend.yml
+  ansible-playbook -i ./repo/ansible/inventory ./repo/ansible/frontend.yml
 
 }
 
