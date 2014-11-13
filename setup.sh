@@ -26,8 +26,6 @@ function _run_ansible() {
 
   local TARGET_DIR="${3:-${DEFAULT_TARGET_DIR}}";
 
-  _get_ansible ${TARGET_DIR}
-
   cd "${TARGET_DIR}";
 
   pip install --upgrade --quiet setuptools;
@@ -42,7 +40,7 @@ function _run_ansible() {
   export ANSIBLE_LIBRARY="${TARGET_DIR}/library";
   export PYTHONPATH="${TARGET_DIR}/lib:${PYTHON_PATH}";
 
-  pip install --upgrade --quiet PyYAML jinja2;
+  CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
 
   git clone ${ANSIBLE_REPO} ./repo
 
