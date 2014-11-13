@@ -9,8 +9,9 @@ function command_exists () {
 
 
 function _get_pip() {
-  if ! command_exists 'pip'; then
-    sudo easy_install pip
+  if ! command_exists 'pip1'; then
+    echo 'Pip not found: installing, you will be prompted for sudo'
+    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7 - '--user'
   fi
 }
 function _run_ansible() {
@@ -31,9 +32,15 @@ function _run_ansible() {
 
   _get_pip
 
-  sudo pip install --upgrade --quiet setuptools;
-  sudo pip install --upgrade --quiet pip;
-  sudo pip install --upgrade --quiet virtualenv;
+  local PIP_SUDO=''
+
+  #if [[ ! -x 'pip' ]]; then
+  #  PIP_SUDO='sudo'
+  #fi
+
+  ${PIP_SUDO} pip install --upgrade --quiet setuptools;
+  ${PIP_SUDO} pip install --upgrade --quiet pip;
+  ${PIP_SUDO} pip install --upgrade --quiet virtualenv;
 
   virtualenv "${DEFAULT_VIRTUALENV}";
 
