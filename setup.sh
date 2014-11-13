@@ -3,15 +3,9 @@
 
 
 
-function _get_ansible() {
-
-  local ANSIBLE_DIR="${1}";
-  # Kill and recreate the directory to keep it indempotent
-  if [ ! -d "${ANSIBLE_DIR}" ]; then
-    git clone --recursive http://github.com/ansible/ansible.git "${ANSIBLE_DIR}";
-  fi
+function _get_pip() {
+  curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7
 }
-
 function _run_ansible() {
 
   declare -r DEFAULT_ANSIBLE_DIR='ansible';
@@ -28,6 +22,8 @@ function _run_ansible() {
 
   cd "${TARGET_DIR}";
 
+  _get_pip
+
   pip install --upgrade --quiet setuptools;
   pip install --upgrade --quiet pip;
   pip install --upgrade --quiet virtualenv;
@@ -43,7 +39,7 @@ function _run_ansible() {
   CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
 
   rm -rf ./repo
-  
+
   git clone ${ANSIBLE_REPO} ./repo
 
   ansible-playbook -i ./repo/ansible/inventory ./repo/ansible/frontend.yml
