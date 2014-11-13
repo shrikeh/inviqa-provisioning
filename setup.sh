@@ -4,7 +4,7 @@
 
 
 function _get_pip() {
-  curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7
+  curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python2.7
 }
 function _run_ansible() {
 
