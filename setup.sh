@@ -37,7 +37,7 @@ function _run_ansible() {
 
   _get_pip
 
-  declare -r PIP_PATH='~/Library/Python2.7/bin/pip'
+  declare -r PIP_PATH="${HOME}/Library/Python2.7/bin/pip"
 
   local PIP_INSTALL="${PIP_SUDO} ${PIP_PATH} install --upgrade --quiet";
 
