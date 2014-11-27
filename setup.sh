@@ -15,13 +15,6 @@ function _get_brew() {
   fi
 }
 
-
-function _get_pip() {
-  echo 'Installing python'
-  brew install --force python
-  brew link --overwrite python
-}
-
 function _run_ansible() {
 
   declare -r DEFAULT_ANSIBLE_DIR='ansible';
@@ -41,18 +34,8 @@ function _run_ansible() {
   cd "${TARGET_DIR}";
 
   _get_brew;
-  _get_pip;
 
-  local PIP_INSTALL='pip install --upgrade --quiet';
-  "${PIP_INSTALL} pip";
-  "${PIP_INSTALL} setuptools";
-  "${PIP_INSTALL} virtualenv";
-
-  virtualenv "${DEFAULT_VIRTUALENV}";
-
-  ${SOURCE} "./${DEFAULT_VIRTUALENV}/bin/activate";
-
-  "${PIP_INSTALL} ansible";
+  brew install --force ansible
 
   rm -rf ./repo
 
