@@ -11,13 +11,14 @@ function _get_brew() {
   if ! command_exists 'brew'; then
     echo 'Installing brew...'
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    export PATH=/usr/local/bin:/usr/local/sbin:$PATH
   fi
 }
 
 
 function _get_pip() {
-  echo 'Pip not found: installing'
-  brew install pip --upgrade
+  echoo 'Installing python'
+  brew install --force python
 }
 
 function _run_ansible() {
