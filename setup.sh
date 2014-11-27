@@ -42,7 +42,7 @@ function _run_ansible() {
   _get_brew;
   _get_pip;
 
-  local PIP_INSTALL='pip install --upgrade --quiet';
+  local PIP_INSTALL='/usr/local/bin/pip install --upgrade --quiet';
   "${PIP_INSTALL} pip";
   "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} virtualenv";
