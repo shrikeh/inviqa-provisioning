@@ -33,7 +33,7 @@ function _run_ansible() {
 
   cd "${TARGET_DIR}";
 
-  local PIP_SUDO='sudo'
+  local PIP_SUDO='sudo -s'
 
   _get_pip
 
