@@ -9,11 +9,12 @@ function command_exists () {
 
 
 function _get_pip() {
-  if ! command_exists 'pip1'; then
+  if ! command_exists 'pip'; then
     echo 'Pip not found: installing, you will be prompted for sudo'
     curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7 - '--user'
   fi
 }
+
 function _run_ansible() {
 
   declare -r DEFAULT_ANSIBLE_DIR='ansible';
@@ -34,22 +35,17 @@ function _run_ansible() {
 
   local PIP_SUDO=''
 
-  #if [[ ! -x 'pip' ]]; then
-  #  PIP_SUDO='sudo'
-  #fi
+  local PIP_INSTALL='CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install --upgrade --quiet';
 
-  ${PIP_SUDO} pip install --upgrade --quiet setuptools;
-  ${PIP_SUDO} pip install --upgrade --quiet pip;
-  ${PIP_SUDO} pip install --upgrade --quiet virtualenv;
+  "${PIP_INSTALL} setuptools";
+  "${PIP_INSTALL} pip";
+  "${PIP_INSTALL} virtualenv";
 
   virtualenv "${DEFAULT_VIRTUALENV}";
 
   ${SOURCE} "./${DEFAULT_VIRTUALENV}/bin/activate";
 
-  export ANSIBLE_LIBRARY="${TARGET_DIR}/library";
-  export PYTHONPATH="${TARGET_DIR}/lib:${PYTHON_PATH}";
-
-  CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
+  "${PIP_INSTALL} ansible";
 
   rm -rf ./repo
 
