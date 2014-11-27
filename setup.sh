@@ -29,13 +29,15 @@ function _run_ansible() {
 
   local TARGET_DIR="${3:-${DEFAULT_TARGET_DIR}}";
 
+  mkdir -p "${TARGET_DIR}"
+
   cd "${TARGET_DIR}";
 
   _get_pip
 
   local PIP_SUDO=''
 
-  local PIP_INSTALL='CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install --upgrade --quiet';
+  local PIP_INSTALL='pip install --upgrade --quiet';
 
   "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} pip";
