@@ -17,8 +17,9 @@ function _get_brew() {
 
 
 function _get_pip() {
-  echoo 'Installing python'
+  echo 'Installing python'
   brew install --force python
+  brew link --overwrite python
 }
 
 function _run_ansible() {
@@ -42,7 +43,7 @@ function _run_ansible() {
   _get_brew;
   _get_pip;
 
-  local PIP_INSTALL='/usr/local/bin/pip install --upgrade --quiet';
+  local PIP_INSTALL='pip install --upgrade --quiet';
   "${PIP_INSTALL} pip";
   "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} virtualenv";
