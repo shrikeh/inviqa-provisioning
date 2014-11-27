@@ -40,9 +40,8 @@ function _run_ansible() {
   declare -r PIP_PATH="${HOME}/Library/Python/2.7/bin/pip"
 
   local PIP_INSTALL="${PIP_SUDO} ${PIP_PATH} install --upgrade --quiet";
-
-  "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} pip";
+  "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} virtualenv";
 
   virtualenv "${DEFAULT_VIRTUALENV}";
