@@ -11,7 +11,7 @@ function command_exists () {
 function _get_pip() {
   if ! command_exists 'pip'; then
     echo 'Pip not found: installing, you will be prompted for sudo'
-    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7 - '--user'
+    sudo easy_install pip
   fi
 }
 
