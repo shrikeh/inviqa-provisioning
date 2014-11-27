@@ -7,11 +7,17 @@ function command_exists () {
     }
 }
 
+function _get_brew() {
+  if ! command_exists 'pip'; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
 
 function _get_pip() {
   if ! command_exists 'pip'; then
-    echo 'Pip not found: installing, you will be prompted for sudo'
-    sudo -s easy_install --user pip
+    echo 'Pip not found: installing'
+    brew install pip --upgrade
   fi
 }
 
@@ -29,17 +35,14 @@ function _run_ansible() {
 
   local TARGET_DIR="${3:-${DEFAULT_TARGET_DIR}}";
 
-  mkdir -p "${TARGET_DIR}"
+  mkdir -p "${TARGET_DIR}";
 
   cd "${TARGET_DIR}";
 
-  local PIP_SUDO='sudo -s'
+  _get_brew;
+  _get_pip;
 
-  _get_pip
-
-  declare -r PIP_PATH="${HOME}/Library/Python/2.7/bin/pip"
-
-  local PIP_INSTALL="${PIP_SUDO} ${PIP_PATH} install --upgrade --quiet";
+  local PIP_INSTALL='pip install --upgrade --quiet';
   "${PIP_INSTALL} pip";
   "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} virtualenv";
