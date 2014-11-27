@@ -11,7 +11,7 @@ function command_exists () {
 function _get_pip() {
   if ! command_exists 'pip'; then
     echo 'Pip not found: installing, you will be prompted for sudo'
-    sudo easy_install --user pip
+    sudo -s easy_install --user pip
   fi
 }
 
