@@ -11,7 +11,7 @@ function command_exists () {
 function _get_pip() {
   if ! command_exists 'pip'; then
     echo 'Pip not found: installing, you will be prompted for sudo'
-    sudo easy_install pip
+    sudo easy_install --user pip
   fi
 }
 
@@ -33,11 +33,13 @@ function _run_ansible() {
 
   cd "${TARGET_DIR}";
 
+  local PIP_SUDO='sudo'
+
   _get_pip
 
-  local PIP_SUDO=''
+  declare -r PIP_PATH='~/Library/Python2.7/bin/pip'
 
-  local PIP_INSTALL='pip install --upgrade --quiet';
+  local PIP_INSTALL="${PIP_SUDO} ${PIP_PATH} install --upgrade --quiet";
 
   "${PIP_INSTALL} setuptools";
   "${PIP_INSTALL} pip";
