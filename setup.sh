@@ -8,7 +8,8 @@ function command_exists () {
 }
 
 function _get_brew() {
-  if ! command_exists 'pip'; then
+  if ! command_exists 'brew'; then
+    echo 'Installing brew...'
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 }
