@@ -16,10 +16,8 @@ function _get_brew() {
 
 
 function _get_pip() {
-  if ! command_exists 'pip'; then
-    echo 'Pip not found: installing'
-    brew install pip --upgrade
-  fi
+  echo 'Pip not found: installing'
+  brew install pip --upgrade
 }
 
 function _run_ansible() {
